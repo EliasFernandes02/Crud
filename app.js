@@ -54,7 +54,7 @@ app.put('/update/:id', authenticateToken, async (req, res) => {
     const { name, email } = req.body;
     const query = 'UPDATE tb_teste SET name = ?, email = ? WHERE id = ?';
     const connection = await db.getConnection();
-    const [result] = await connection.query(query, [name, email, id]);
+    const [results] = await connection.query(query, [name, email, id]);
     connection.release();
     res.send('User updated successfully');
   } catch (err) {
@@ -115,6 +115,16 @@ app.get('/list', authenticateToken, async (req, res) => {
     res.status(500).send('Error retrieving users');
   }
 });
+
+
+// app.post('/create', (req, res) => {
+//   const { id,name,email, password } = req.body;
+//   const query = 'INSERT INTO tb_teste (id,name,email,password) VALUES (?, ?, ?, ?)';
+//   db.query(query, [id,name, email,password], (err, result) => {
+//     res.send('User created successfully');
+//   });
+// });
+
 
 app.listen(3000, () => {
   console.log('Server listening on port 3000');
